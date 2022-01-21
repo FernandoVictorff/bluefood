@@ -1,9 +1,7 @@
-function isNumberKey(evt) {
-	var charCode = (evt.which) ? evt.which : evt.keyCode;
-	
-	if((charCode >= 48 && charCode <= 57) || charCode <= 31){
-		return true;
-	}
-	
-	return false;		
+function isNumberKey(e) {
+    return Number.isInteger(parseInt(e.key, 10)) 
+	|| e.key === 'Delete'
+	|| e.key === 'Backspace'
+	|| e.key === 'ArrowLeft'
+	|| e.key === 'ArrowRight'
 }

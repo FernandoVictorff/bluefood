@@ -12,10 +12,17 @@ public class ClienteService {
 	@Autowired
 	private ClienteRepository clienteRepository;
 	
-	public void saveCLiente(Cliente cliente) {
+	public void saveCLiente(Cliente cliente) throws ValidationException{
+		
+		if(validateEmail(cliente.getEmail(), cliente.getId())) {
+			throw new ValidationException("O email está duplicado");
+		}
+		
 		clienteRepository.save(cliente);
 	}
 	
-	
+	private boolean validateEmail(String email, Integer id) {
+		return false;
+	}
 	
 }

@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import br.com.fernando.bluefood.application.ClienteService;
+import br.com.fernando.bluefood.application.ValidationException;
 import br.com.fernando.bluefood.domain.cliente.Cliente;
 
 @Controller
@@ -34,8 +35,13 @@ public class PublicController {
 			Model model) {
 		
 		if(!errors.hasErrors()) {
-			clienteService.saveCLiente(cliente);
-			model.addAttribute("msg", "Cliente gravado com sucesso!");
+			try {
+				clienteService.saveCLiente(cliente);
+				model.addAttribute("msg", "Cliente gravado com sucesso!");
+			} catch (ValidationException e) {
+				errors.rejectValue("email", null, e.getMessage());
+			}
+			
 		}
 		
 		
