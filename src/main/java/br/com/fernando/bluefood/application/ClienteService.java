@@ -14,15 +14,35 @@ public class ClienteService {
 	
 	public void saveCLiente(Cliente cliente) throws ValidationException{
 		
-		if(validateEmail(cliente.getEmail(), cliente.getId())) {
+		if(!validateEmail(cliente.getEmail(), cliente.getId())) {
 			throw new ValidationException("O email está duplicado");
+		}
+		
+		if(cliente.getId() != null) {
+			Cliente clienteDb = clienteRepository.findById(cliente.getId()).orElseThrow();
+			cliente.setSenha(clienteDb.getSenha());
+		} else {
+			cliente.encryptPassword();
 		}
 		
 		clienteRepository.save(cliente);
 	}
 	
 	private boolean validateEmail(String email, Integer id) {
-		return false;
+		Cliente cliente = clienteRepository.findByEmail(email);
+		
+		if(cliente != null) {
+			
+			if(id == null) {
+				return false;
+			}
+			
+			if(!cliente.getId().equals(id)) {
+				return false;
+			}			
+		}
+		
+		return true;		
 	}
 	
 }

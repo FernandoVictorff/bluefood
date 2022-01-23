@@ -12,6 +12,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
+import br.com.fernando.bluefood.util.StringUtils;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
@@ -50,6 +51,8 @@ public class Usuario implements Serializable{
 	@Column(length = 11, nullable = false)
 	private String telefone;
 	
-	
+	public void encryptPassword() {
+		this.senha = StringUtils.encrypt(senha);
+	}
 	
 }
