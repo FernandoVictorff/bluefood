@@ -83,7 +83,6 @@ public class PublicController {
 		
 		
 		ControllerHelper.setEditMode(model, false);
-		ControllerHelper.addCategoriasToRequest(catogoriaRestauranteRepository, model);
 		return "restaurante-cadastro";
 	}
 	
