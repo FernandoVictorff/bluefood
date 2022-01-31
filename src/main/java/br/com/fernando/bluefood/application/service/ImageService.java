@@ -1,4 +1,4 @@
-package br.com.fernando.bluefood.application;
+package br.com.fernando.bluefood.application.service;
 
 import java.io.IOException;
 

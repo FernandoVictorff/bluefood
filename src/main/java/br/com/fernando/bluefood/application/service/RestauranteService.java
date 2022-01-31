@@ -1,9 +1,11 @@
-package br.com.fernando.bluefood.application;
+package br.com.fernando.bluefood.application.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import br.com.fernando.bluefood.domain.cliente.Cliente;
+import br.com.fernando.bluefood.domain.cliente.ClienteRepository;
 import br.com.fernando.bluefood.domain.restaurante.Restaurante;
 import br.com.fernando.bluefood.domain.restaurante.RestauranteRepository;
 
@@ -12,6 +14,9 @@ public class RestauranteService {
 	
 	@Autowired
 	private RestauranteRepository restauranteRepository;
+	
+	@Autowired
+	private ClienteRepository clienteRepository;
 	
 	@Autowired
 	private ImageService imageService;
@@ -37,6 +42,12 @@ public class RestauranteService {
 	}
 	
 	private boolean validateEmail(String email, Integer id) {
+		Cliente cliente = clienteRepository.findByEmail(email);
+		
+		if (cliente != null) {
+			return false;
+		}
+		
 		Restaurante restaurante = restauranteRepository.findByEmail(email);
 		
 		if(restaurante != null) {
