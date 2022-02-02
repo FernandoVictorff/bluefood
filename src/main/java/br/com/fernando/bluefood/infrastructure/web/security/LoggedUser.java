@@ -25,13 +25,9 @@ public class LoggedUser implements UserDetails{
 		
 		if(usuario instanceof Cliente) {
 			role = Role.CLIENTE;
-		}
-		
-		if(usuario instanceof Restaurante) {
+		} else if(usuario instanceof Restaurante) {
 			role = Role.RESTAURANTE;
-		}
-		
-		else {
+		} else {
 			throw new IllegalStateException("O tipo de usuário não é válido");
 		}
 		
